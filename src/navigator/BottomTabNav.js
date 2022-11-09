@@ -1,5 +1,5 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {HomeScreen, SearchScreen} from '../screens';
+import {HomeScreen, PlayScreen, SearchScreen} from '../screens';
 import {COLORS} from '../utils';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -26,6 +26,7 @@ const BottomTabNav = () => {
       })}>
       <Tab.Screen name="Trang chủ" component={HomeScreen} />
       <Tab.Screen name="Tìm kiếm" component={SearchScreen} />
+      <Tab.Screen name="play" component={PlayScreen} />
     </Tab.Navigator>
   );
 };
