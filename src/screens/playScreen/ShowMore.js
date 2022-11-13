@@ -1,12 +1,14 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient';
+
 import React from 'react'
 
 export default function ShowMore({ showMore, children }) {
     return (
-        <View 
-            style={{maxHeight: showMore ? undefined : 0, overflow: 'hidden'}}
+        <View
+            style={{ maxHeight: showMore ? undefined : 44, overflow: 'hidden', position: 'relative' }}
         >
-            <Text style={styles.text}>{children}</Text>
+            <Text style={[styles.text]}>{children}</Text>
         </View>
     )
 }
@@ -15,8 +17,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#f1f1f1',
-        opacity: 0.7,
+        color: '#808080',
         textAlign: 'justify',
-      },
+    },
 })
