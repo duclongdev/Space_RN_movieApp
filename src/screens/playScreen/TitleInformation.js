@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, ScrollView, Image, Pressable, FlatList, TouchableHighlight, Button, TouchableWithoutFeedback, Modal, TextInput, Animated } from 'react-native'
-import React, { useRef, useState } from 'react'
+import { View, Text, StyleSheet, ScrollView, Image, Pressable, FlatList, TouchableHighlight, Button, TouchableWithoutFeedback, Modal, TextInput, Animated, LogBox } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -10,12 +10,22 @@ import SelectionBar from './SelectionBar';
 const TitleInformation = () => {
   const [showMore, setShowMore] = useState(false);
   const [current, setCurrent] = useState(1);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [status1, setStatus1] = useState(1);
+
+  useEffect(_ => {
+    LogBox.ignoreLogs(['Animated: `useNativeDriver`'])
+  })
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const inputRange = [0, 100];
   const outputRange = ["0%", "100%"];
   const animatedHeight = fadeAnim.interpolate({ inputRange, outputRange });
+
+  const check = (response) => {
+    if (response !== '') {
+      return <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 16, color: '#16C60C' }}>{response} responses</Text>;
+    }
+  }
 
   const eps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 
@@ -122,11 +132,11 @@ const TitleInformation = () => {
     },
   ];
 
-  const commentList = [{ image: 'https://drive.google.com/drive/u/1/folders/1WWrgq1z_bgaLnXZANJC2J_6wxH5UpBWM', name: 'Pháp Nguyễn', timeComment: '2 days ago', content: 'Tập phim khá cuốn <3', like: '3', response: '' },
-  { image: 'https://img7.iqiyipic.com/passport/20220817/49/8e/passport_34024722240_166070254580085_130_130.jpg', name: 'I found you🙂', timeComment: '3 days ago', content: 'I can\'t play the vid because there\'s a join vip🙄', like: '3', response: '3' },
-  { image: 'https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/312885762_104043855845073_8132235754234723262_n.jpg?stp=c15.0.160.160a_dst-jpg_p200x200&_nc_cat=106&ccb=1-7&_nc_sid=dbb9e7&_nc_ohc=-sitfQ_3AekAX_9ZMf4&_nc_oc=AQn55HEqnAWc_lOBdV2teI0bmI-o2ZZS-nG3J0jDzAk8gHlqmt5yEMaGGEpxr_EyzuU&_nc_ht=scontent.fsgn2-5.fna&oh=00_AfCjVC7kycozwBbij3D1S4d9PM3A4nuaDSDB_hSp1aEi0w&oe=63759FAB', name: 'Bad_Man', timeComment: '1 month(s)', content: 'very annoying ads right', like: '3', response: '1' },
-  { image: '', name: 'Khang sama', timeComment: '2 month(s)', content: 'very annoying ads right', like: '3', response: '5' },
-  { image: '', name: 'ethananimelover78', timeComment: '2022-06-28', content: 'so good', like: '3', response: '4' },
+  const commentList = [{ image: 'https://scontent.xx.fbcdn.net/v/t1.15752-9/277856363_708039440336369_7510005833701091522_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=aee45a&_nc_ohc=IX4nMKrsAScAX9D1Lvu&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdReeH0GmMp6JXn_Fd7RfRU4K_3tiZ9HmHxKVZOC-I2Jfg&oe=639279AD', name: 'Pháp Nguyễn', timeComment: '2 days ago', content: 'Chúc mọi người ngày mới zui zẻ', like: 5, response: '' },
+  { image: 'https://scontent.xx.fbcdn.net/v/t1.15752-9/277856363_708039440336369_7510005833701091522_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=aee45a&_nc_ohc=IX4nMKrsAScAX9D1Lvu&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdReeH0GmMp6JXn_Fd7RfRU4K_3tiZ9HmHxKVZOC-I2Jfg&oe=639279AD', name: 'I found you🙂', timeComment: '3 days ago', content: 'I can\'t play the vid because there\'s a join vip🙄', like: 4, response: '3' },
+  { image: 'https://scontent.xx.fbcdn.net/v/t1.15752-9/277856363_708039440336369_7510005833701091522_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=aee45a&_nc_ohc=IX4nMKrsAScAX9D1Lvu&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdReeH0GmMp6JXn_Fd7RfRU4K_3tiZ9HmHxKVZOC-I2Jfg&oe=639279AD', name: 'Bad_Man', timeComment: '1 month(s)', content: 'Tập phim khá cuốn <3', like: 3, response: '1' },
+  { image: 'https://scontent.xx.fbcdn.net/v/t1.15752-9/277856363_708039440336369_7510005833701091522_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=aee45a&_nc_ohc=IX4nMKrsAScAX9D1Lvu&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdReeH0GmMp6JXn_Fd7RfRU4K_3tiZ9HmHxKVZOC-I2Jfg&oe=639279AD', name: 'Khang sama', timeComment: '2 month(s)', content: 'very annoying ads right', like: 2, response: '5' },
+  { image: 'https://scontent.xx.fbcdn.net/v/t1.15752-9/277856363_708039440336369_7510005833701091522_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=aee45a&_nc_ohc=IX4nMKrsAScAX9D1Lvu&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdReeH0GmMp6JXn_Fd7RfRU4K_3tiZ9HmHxKVZOC-I2Jfg&oe=639279AD', name: 'ethananimelover78', timeComment: '2022-06-28', content: 'so good', like: 3, response: '4' },
   ];
 
   const slideIn = () => {
@@ -139,7 +149,7 @@ const TitleInformation = () => {
   const slideOut = () => {
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 300
+      duration: 300,
     }).start();
   };
 
@@ -216,6 +226,7 @@ const TitleInformation = () => {
             activeOpacity={1}
             underlayColor="#3b3c42"
             style={styles.button}
+            touchSoundDisabled={true}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon name='md-bookmark-outline' size={24} color={'#fff'} />
@@ -227,6 +238,7 @@ const TitleInformation = () => {
             activeOpacity={1}
             underlayColor="#3b3c42"
             style={styles.button}
+            touchSoundDisabled={true}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon name='md-open-outline' size={24} color={'#fff'} />
@@ -238,6 +250,7 @@ const TitleInformation = () => {
             activeOpacity={1}
             underlayColor="#3b3c42"
             style={styles.button}
+            touchSoundDisabled={true}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon name='ios-download-outline' size={24} color={'#fff'} />
@@ -250,6 +263,7 @@ const TitleInformation = () => {
             activeOpacity={1}
             underlayColor="#3b3c42"
             style={styles.button}
+            touchSoundDisabled={true}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon name='ios-cut-outline' size={24} color={'#fff'} />
@@ -263,6 +277,7 @@ const TitleInformation = () => {
           activeOpacity={1}
           underlayColor='#3b3c42'
           style={styles.commentbar}
+          touchSoundDisabled={true}
         >
           <View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -311,13 +326,10 @@ const TitleInformation = () => {
                       paddingVertical: 18,
                       marginRight: 8
                     },
-                    {
-                      backgroundColor: pressed
-                        ? '#3b3c42'
-                        : '#2e2f34'
-                    }
+
                   ]}
                   key={index}
+                  android_ripple={{ color: '#3b3c42', radius: 30 }}
                 >
                   <Text style={[
                     styles.textcomment,
@@ -345,9 +357,10 @@ const TitleInformation = () => {
             renderItem={({ item }) => (
               <Pressable style={({ pressed }) => [styles.item, {
                 backgroundColor: pressed
-                    ? '#2e2f34'
-                    : '#0f0f0f'
-              }, {borderRadius: 10}]}>
+                  ? '#2e2f34'
+                  : '#0f0f0f'
+              }, { borderRadius: 10 }]}
+              >
                 <Image
                   source={{ uri: `${item.image}` }}
                   style={{
@@ -373,10 +386,10 @@ const TitleInformation = () => {
         <View style={[styles.epsbar]}>
           <Text style={styles.title}>Top Anime</Text>
 
-          <View style={{ marginTop: 10 }}>
+          <View style={{ marginTop: 10, paddingRight: 8 }}>
             {topFilm.map((value, index) => {
               return (
-                <Pressable style={({ pressed }) => [styles.item, { flexDirection: 'row', borderRadius: 10 }, {
+                <Pressable style={({ pressed }) => [styles.item, { flexDirection: 'row', borderRadius: 10, width: '100%', paddingRight: 4 }, {
                   backgroundColor: pressed
                     ? '#2e2f34'
                     : '#0f0f0f'
@@ -389,11 +402,9 @@ const TitleInformation = () => {
                       height: 220,
                     }}
                   />
-                  <View>
+                  <View style={{ flex: 1 }}>
                     <Text style={[styles.titlerating, { color: '#16C60C' }]}>#{value.rank}</Text>
-                    <Text style={[styles.titlerating]}>{((value.filmName).length > 27) ?
-                      (((value.filmName).substring(0, 27 - 3)) + '...') :
-                      value.filmName}</Text>
+                    <Text style={[styles.titlerating, { width: '100%', textAlign: 'left' }]}>{value.filmName}</Text>
 
                     <Text style={{ fontSize: 18, color: '#f1f1f1', marginLeft: 8, marginTop: 8 }}>{value.view}</Text>
                     <Text style={{ fontSize: 18, color: '#f1f1f1', marginLeft: 8 }}>{value.genre}</Text>
@@ -428,16 +439,19 @@ const TitleInformation = () => {
             <View style={{ flexDirection: 'row', paddingHorizontal: 12, marginBottom: 8 }}>
               <Pressable
                 android_disableSound={true}
-                style={[styles.buttonModal, { marginRight: 12 }]}
+                style={[styles.buttonModal, { marginRight: 12 }, { backgroundColor: status1 === 1 ? '#f1f1f1' : '#2e2f34' }]}
+                onPress={() => setStatus1(1)}
+
               >
-                <Text style={styles.textbutton}>Most prominent</Text>
+                <Text style={[styles.textbutton, { color: status1 === 1 ? '#2e2f34' : '#f1f1f1' }]}>Most prominent</Text>
               </Pressable>
 
               <Pressable
                 android_disableSound={true}
-                style={styles.buttonModal}
+                style={[styles.buttonModal, { backgroundColor: status1 === 2 ? '#f1f1f1' : '#2e2f34' }]}
+                onPress={() => setStatus1(2)}
               >
-                <Text style={styles.textbutton}>Latest</Text>
+                <Text style={[styles.textbutton, { color: status1 === 2 ? '#2e2f34' : '#f1f1f1' }]}>Latest</Text>
               </Pressable>
             </View>
           </View>
@@ -466,46 +480,44 @@ const TitleInformation = () => {
             <View style={{ borderBottomColor: '#2e2f34', borderBottomWidth: 1, marginBottom: 12 }}></View>
 
             {commentList.map((value, index) => (
-              <ScrollView key={index}>
-                <View key={index} style={{ flexDirection: 'row' }}>
-                  <View style={{ flexDirection: 'row', flex: 1 }}>
-                    <Image
-                      source={{ uri: value.image }}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: 30 / 2,
-                        marginHorizontal: 12,
-                        top: 5
-                      }}
-                    />
-                    <View>
-                      <Text style={[styles.text, { fontSize: 16 }]}>{value.name} • {value.timeComment}</Text>
-                      <Text style={[styles.textcomment, { textAlign: 'justify', marginVertical: 4, paddingRight: 44 }]}>{value.content}</Text>
+              <View key={index} style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row', flex: 1 }}>
+                  <Image
+                    source={{ uri: value.image }}
+                    style={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 30 / 2,
+                      marginHorizontal: 12,
+                      top: 5
+                    }}
+                  />
+                  <View>
+                    <Text style={[styles.text, { fontSize: 16 }]}>{value.name} • {value.timeComment}</Text>
+                    <Text style={[styles.textcomment, { textAlign: 'justify', marginVertical: 4, paddingRight: 44 }]}>{value.content}</Text>
 
-                      <SelectionBar like={value.like}></SelectionBar>
+                    <SelectionBar like={value.like}></SelectionBar>
 
-                      {value.response === '' ? console.log('hello') :
-                        <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 16 , color: '#16C60C'}}>{value.response} responses</Text>
-                      }
+                    {check(value.response)}
 
-                    </View>
-                  </View>
-
-                  <View style={{ flexDirection: 'row', marginTop: 8, marginHorizontal: 12 }}>
-                    <TouchableWithoutFeedback>
-                      <Icon name='ellipsis-vertical-sharp' color={'#f1f1f1'} size={16} />
-                    </TouchableWithoutFeedback>
                   </View>
                 </View>
-              </ScrollView>
-            ))}
 
+                <View style={{ flexDirection: 'row', marginTop: 8, marginHorizontal: 12 }}>
+                  <TouchableWithoutFeedback>
+                    <Icon name='ellipsis-vertical-sharp' color={'#f1f1f1'} size={16} />
+                  </TouchableWithoutFeedback>
+                </View>
+              </View>
+
+            ))}
+            <View style={{ height: 400 }} />
 
 
           </ScrollView>
         </View>
       </Animated.View>
+
     </>
   )
 }
